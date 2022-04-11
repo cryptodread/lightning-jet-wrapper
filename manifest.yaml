@@ -1,17 +1,17 @@
-id: loop 
-title: "Lightning Loop"
-version: 0.18.0
+id: balanceofsatoshis 
+title: "Balance of Satoshis"
+version: 11.64.2
 release-notes: "Upgrade to EmbassyOS v0.3.0"
 license: mit
-wrapper-repo: "https://github.com/Start9Labs/loop-wrapper"
-upstream-repo: "https://github.com/lightninglabs/loop"
-support-site: "https://github.com/lightninglabs/loop/issues"
-marketing-site: "https://lightning.engineering/"
+wrapper-repo: "https://github.com/Start9Labs/balanceofsatoshis-wrapper"
+upstream-repo: "https://github.com/alexbosworth/balanceofsatoshis"
+support-site: "https://github.com/alexbosworth/balanceofsatoshis/issues"
+marketing-site: "https://github.com/alexbosworth"
 build: ["make"]
 description:
-  short: Lightning Loop - A Non-Custodial Off/On Chain Bridge 
+  short: Balance of Satoshis - Tool for working with the balance of your satoshis on LND
   long: |
-    Lightning Loop is a non-custodial service offered by Lightning Labs that makes it easy to move bitcoin into and out of the Lightning Network.
+    Balance of Satoshis - Tool for working with the balance of your satoshis on Lightning Network Daemon, using commands for working with LND balances.
 assets:
   license: LICENSE
   icon: icon.png
@@ -26,8 +26,8 @@ main:
     main: /root
 health-checks:
   main:
-    name: Loop API
-    success-message: The Loop API is accessible and responding
+    name: BoS API
+    success-message: The BoS API is accessible and responding
     type: docker
     image: main
     entrypoint: "check-web.sh"
@@ -58,7 +58,7 @@ config:
     args:
       - config
       - set
-      - loop
+      - balanceofsatoshis
       - /root
       - "/mnt/assets/config_rules.yaml"
     mounts:
@@ -87,7 +87,7 @@ interfaces:
       - http
 dependencies:
   lnd:
-    version: ">=0.13.3.1 <0.15.0"
+    version: ">=0.11.0 <0.15.0"
     requirement:
       type: "opt-in"
       how: Optionally use LND for internal lightning network node implementation.
@@ -120,18 +120,3 @@ backup:
     mounts:
       BACKUP: "/mnt/backup"
       main: "/root/data"
-actions:
-  loop-action:
-    name: Loop Action
-    description: A description that describes what the action will accomplish.
-    warning: |
-      A warning message indicating and potential dangers associated with the action
-    allowed-statuses:
-      - running
-    implementation:
-      type: docker
-      image: main
-      entrypoint: sh
-      args: ["-c", "echo 'loop'"]
-      inject: true
-      io-format: json

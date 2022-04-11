@@ -1,3 +1,3 @@
 #!/bin/bash
 
-exec tini loop
+exec tini balanceofsatoshis

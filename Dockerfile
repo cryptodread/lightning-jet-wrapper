@@ -4,7 +4,7 @@ RUN apk update
 RUN apk add tini curl
 ADD . /
 
-RUN cd loop/cmd && go install ./...
+RUN cd balanceofsatoshis/cmd && go install ./...
 
 
 ADD ./docker_entrypoint.sh /usr/local/bin/docker_entrypoint.sh
