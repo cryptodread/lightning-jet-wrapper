@@ -3,7 +3,7 @@ title: Balance of Satoshis
 version: 11.64.2
 release-notes: Upgrade to EmbassyOS v0.3.0
 license: mit
-wrapper-repo: "https://github.com/Start9Labs/balanceofsatoshis-wrapper"
+wrapper-repo: "https://github.com/cryptodread/balanceofsatoshis-wrapper"
 upstream-repo: "https://github.com/alexbosworth/balanceofsatoshis"
 support-site: "https://github.com/alexbosworth/balanceofsatoshis/issues"
 marketing-site: "https://github.com/alexbosworth"
