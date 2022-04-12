@@ -1,18 +1,16 @@
-FROM arm64v8/alpine:3.12
+FROM arm64v8/node:latest
 
-RUN apk update
-RUN apk add tini curl
 ADD . /
+RUN cd balanceofsatoshis && npm install
 
-RUN cd balanceofsatoshis/cmd && go install ./...
-
+WORKDIR /
 
 ADD ./docker_entrypoint.sh /usr/local/bin/docker_entrypoint.sh
 RUN chmod a+x /usr/local/bin/docker_entrypoint.sh
 ADD assets/utils/check-web.sh /usr/local/bin/check-web.sh
 RUN chmod +x /usr/local/bin/check-web.sh
 
-WORKDIR /root
+WORKDIR /balanceofsatoshis/
 
 EXPOSE 80
 

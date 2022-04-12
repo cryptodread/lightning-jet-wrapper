@@ -7,6 +7,7 @@ wrapper-repo: "https://github.com/Start9Labs/balanceofsatoshis-wrapper"
 upstream-repo: "https://github.com/alexbosworth/balanceofsatoshis"
 support-site: "https://github.com/alexbosworth/balanceofsatoshis/issues"
 marketing-site: "https://github.com/alexbosworth"
+donation-url: "https://yalls.org/hashcash/7bff5e4f-4534-4cca-8daa-3d5a3c239919/"
 build: ["make"]
 description:
   short: Balance of Satoshis - Tool for working with the balance of your satoshis on LND
@@ -23,53 +24,23 @@ main:
   entrypoint: "docker_entrypoint.sh"
   args: []
   mounts:
+    lnd: /mnt/lnd
     main: /root
-health-checks:
-  main:
-    name: BoS API
-    success-message: The BoS API is accessible and responding
-    type: docker
-    image: main
-    entrypoint: "check-web.sh"
-    args: []
-    inject: true
-    system: false
-    io-format: json
-config:
-  get:
-    type: docker
-    image: compat
-    system: true
-    entrypoint: compat
-    args:
-      - config
-      - get
-      - /root
-      - "/mnt/assets/config_spec.yaml"
-    mounts:
-      compat: /mnt/assets
-      main: /root
-    io-format: yaml
-  set:
-    type: docker
-    image: compat
-    system: true
-    entrypoint: compat
-    args:
-      - config
-      - set
-      - balanceofsatoshis
-      - /root
-      - "/mnt/assets/config_rules.yaml"
-    mounts:
-      compat: /mnt/assets
-      main: /root
-    io-format: yaml
+health-checks: {}
+config: ~
 volumes:
   main:
     type: data
   compat:
     type: assets 
+  utils:
+    type: assets
+  lnd:
+    type: pointer
+    package-id: lnd
+    volume-id: main
+    path: "/public"
+    readonly: true
 interfaces:
   main:
     name: Network Interface
@@ -89,9 +60,7 @@ dependencies:
   lnd:
     version: ">=0.11.0 <0.15.0"
     requirement:
-      type: "opt-in"
-      how: Optionally use LND for internal lightning network node implementation.
-    description: Used to communicate with the Lightning Network.
+      type: required
     config: ~
 backup:
   create:

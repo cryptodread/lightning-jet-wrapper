@@ -86,4 +86,4 @@ embassy-cli package install /path/to/balanceofsatoshis.s9pk
 
 Go to your Embassy Services page, select Balance of Satoshis and start the service.
 
-#Done
+# Done

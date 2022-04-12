@@ -15,7 +15,7 @@ clean:
 	rm -f image.tar
 	rm -f balanceofsatoshis.s9pk
 
-balanceofsatoshis.s9pk: manifest.yaml assets/compat/* image.tar docs/instructions.md $(ASSET_PATHS)
+balanceofsatoshis.s9pk: credentials.json manifest.yaml assets/compat/* image.tar docs/instructions.md $(ASSET_PATHS)
 	embassy-sdk pack
 
 image.tar: Dockerfile docker_entrypoint.sh assets/utils/*
