@@ -1,7 +1,7 @@
 FROM arm64v8/node:latest
 
 ADD . /
-RUN cd balanceofsatoshis && npm install
+RUN cd lightning-jet && npm install --build-from-source --python=/usr/bin/python3
 
 WORKDIR /
 
@@ -10,7 +10,7 @@ RUN chmod a+x /usr/local/bin/docker_entrypoint.sh
 ADD assets/utils/check-web.sh /usr/local/bin/check-web.sh
 RUN chmod +x /usr/local/bin/check-web.sh
 
-WORKDIR /balanceofsatoshis/
+WORKDIR /lightning-jet/
 
 EXPOSE 80
 

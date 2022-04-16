@@ -1,17 +1,22 @@
 #!/bin/bash
 
-# Display current installed version and help
-echo "Balance of Satoshis - Version: "
-./bos --version
-mkdir -p /root/.bos/embassy
-chmod -R a+x /root/.bos
+sed -i 's/.*"macaroonPath":.*/"macaroonPath": "/mnt/lnd/readonly.macaroon",/' api/config.json
+sed -i 's/.*"tlsCertPath":.*/"tlsCertPath": "/mnt/lnd/tls.cert",' api/config.json
+sed -i 's/export PATH=/export PATH="$HOME/lightning-jet:' ./.profile
+echo "export PATH=$HOME/lightning-jet:$PATH" >> ./.profile
+. /.profile
 
-mv ../credentials.json /root/.bos/embassy/credentials.json
-chmod a+x /root/.bos/embassy/credentials.json
+# Display current installed version and help
+echo "Lightning Jet - Version: "
+jet -v
+
+# Start Jet
+echo "Starting Jet Daddy"
+jet start daddy
 
 # Starting command line
 while true;
-do ./bos nodes;
+do jet peers;
 sleep 2000;
 done
 

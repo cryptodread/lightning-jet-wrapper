@@ -1,6 +1,6 @@
-# Wrapper for Balance of Satoshis
+# Wrapper for Lightning Jet (or simply Jet)
 
-`balanceofsatoshis` is a simple, minimal project to serve as a template for creating an app for the Embassy.
+`lightning-jet` is a simple, minimal project to serve as a template for creating an app for the Embassy.
 
 ## Dependencies
 
@@ -59,8 +59,8 @@ cd embassy-os/backend/
 Clone the project locally. Note the submodule link to the original project(s). 
 
 ```
-git clone https://github.com/Start9Labs/balanceofsatoshis-wrapper.git
-cd balanceofsatoshis-wrapper
+git clone https://github.com/Start9Labs/lightning-jet-wrapper.git
+cd lightning-jet-wrapper
 git submodule update --init --recursive
 ```
 ## Building
@@ -80,10 +80,10 @@ Run the following command to install the package:
 ```
 embassy-cli auth login
 #Enter your embassy password then run:
-embassy-cli package install /path/to/balanceofsatoshis.s9pk
+embassy-cli package install /path/to/lightning-jet.s9pk
 ```
 ## Verify Install
 
-Go to your Embassy Services page, select Balance of Satoshis and start the service.
+Go to your Embassy Services page, select Lightning Jet and start the service.
 
 # Done
