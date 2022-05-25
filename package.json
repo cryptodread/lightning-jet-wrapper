@@ -1,0 +1,45 @@
+{
+  "author": {
+    "name": "Neski",
+    "url": "https://twitter.com/itsneski"
+  },
+  "bin": {},
+  "bugs": {
+    "url": "https://github.com/itsneski/lightning-jet/issues"
+  },
+  "dependencies": {
+    "@grpc/grpc-js": "^1.3.7",
+    "@grpc/proto-loader": "^0.6.5",
+    "balanceofsatoshis": "^11.18.0",
+    "caporal": "^1.4.0",
+    "date-and-time": "^2.0.1",
+    "deasync": "0.1.23",
+    "find-process": "^1.4.5",
+    "import-lazy": "^4.0.0",
+    "node-telegram-bot-api": "^0.54.0",
+    "run-parallel": "1.2.0",
+    "sqlite3": "^4.2.0"
+  },
+  "description": "Fully automated rebalancer for LND Lightning nodes. Helps get an insight into peers' classification based on routing history, missed routing opportunities, and stuck htlcs.",
+  "engines": {
+    "node": ">=12"
+  },
+  "keywords": [
+    "cli",
+    "lightning",
+    "lightning-network",
+    "lnd",
+    "rebalance"
+  ],
+  "license": "MIT",
+  "main": "jet",
+  "name": "Lightning Jet",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/itsneski/lightning-jet.git"
+  },
+  "scripts": {
+    "postinstall": "./tools/genconfig"
+  },
+  "version": "1.4.3"
+}

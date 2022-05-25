@@ -1,18 +1,33 @@
 #!/bin/bash
 
-sed -i 's/.*"macaroonPath":.*/"macaroonPath": "/mnt/lnd/readonly.macaroon",/' api/config.json
-sed -i 's/.*"tlsCertPath":.*/"tlsCertPath": "/mnt/lnd/tls.cert",' api/config.json
-sed -i 's/export PATH=/export PATH="$HOME/lightning-jet:' ./.profile
-echo "export PATH=$HOME/lightning-jet:$PATH" >> ./.profile
-. /.profile
+set -a
 
-# Display current installed version and help
-echo "Lightning Jet - Version: "
-jet -v
+echo "Configuring Jet..."
+JET_BOT=$(yq e '.bot.enable' /root/start9/config.yaml)
+if [ "$JET_BOT" = "enable" ]; then
+	JET_TOKEN=$(yq e '.bot.token' /root/start9/config.yaml)
+	echo "Jet Bot Enabled..."
+else
+	echo "Jet Bot Disabled..."
+fi
 
-# Start Jet
-echo "Starting Jet Daddy"
+#Configuring Lightning Jet
+sed -i 's/localhost/lnd.embassy/g' ./lnd-api/connect.js
+sed -i 's/.*"macaroonPath":.*/  "macaroonPath": "\/mnt\/lnd\/admin.macaroon",/' ./api/config.json
+sed -i 's/.*"tlsCertPath":.*/  "tlsCertPath": "\/mnt\/lnd\/tls.cert",/' ./api/config.json
+if [ "$JET_BOT" = "enable" ]; then
+    sed -i '/.*"debugMode":.*/a    "telegramToken": "'$JET_TOKEN'",' ./api/config.json
+fi
+echo "export PATH=$PATH:/app" >> ./.profile
+source ./.profile
+chmod +r /mnt/lnd/readonly.macaroon
+
+#Starting Lightning Jet
+echo "Starting Jet..."
 jet start daddy
+if [ "$JET_BOT" = "enable" ]; then
+    jet start telegram
+fi
 
 # Starting command line
 while true;

@@ -1,13 +1,22 @@
-# To utilize the default config system built in the compat system image, this file is required. It defines the *structure* of the configuration file. These structured options display as changeable UI elements within the "Config" section of the service details page in the Embassy UI.
-
-# Example:
-# tor-address:
-#   name: Network Tor Address
-#   description: The Tor address for the network interface. 
-#   type: pointer
-#   subtype: package
-#   package-id: hello-world
-#   target: tor-address
-#   interface: main
-
-{}
+bot:
+  type: union
+  name: Jet Bot
+  description: The Telegram Bot for Lightning Jet
+  tag:
+    id: enable
+    name: Enable
+    description: |
+      - Enabled: The Telegram Bot will communicate with Lightning Jet on your Embassy.
+      - Disabled: The Telegram Bot will be disabled.
+    variant-names:
+      disable: Disabled
+      enable: Enabled
+  default: disable
+  variants:
+    disable: {}
+    enable:
+      token:
+        type: string
+        name: Telegram API Token
+        description: Telegram Token from the Telegram app chat with BotFather
+        nullable: false

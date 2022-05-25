@@ -1,7 +1,7 @@
 id: lightning-jet 
 title: Lightning Jet
-version: 1.4.2
-release-notes: Upgrade to EmbassyOS v0.3.0.2
+version: 1.4.3
+release-notes: Upgrade to EmbassyOS v0.3.0.3
 license: mit
 wrapper-repo: "https://github.com/cryptodread/lightning-jet-wrapper"
 upstream-repo: "https://github.com/itsneski/lightning-jet"
@@ -11,10 +11,7 @@ donation-url: "https://t.me/lnjet"
 build: ["make"]
 description:
   short: Fully automated rebalancer for LND Lightning nodes
-  long: |
-    Fully automated rebalancer for LND Lightning nodes. Helps get an insight into peers classification based on routing history, missed routing opportunities, and stuck htlcs.
-
-    Join Lightning Jet telegram chat for more information and support.
+  long: Fully automated rebalancer for LND Lightning nodes. Helps get an insight into peers classification based on routing history, missed routing opportunities, and stuck htlcs.
 assets:
   license: LICENSE
   icon: icon.png
@@ -29,7 +26,36 @@ main:
     lnd: /mnt/lnd
     main: /root
 health-checks: {}
-config: ~
+config:
+  get:
+    type: docker
+    image: compat
+    system: true
+    entrypoint: compat
+    args:
+      - config
+      - get
+      - /root
+      - "/mnt/assets/config_spec.yaml"
+    mounts:
+      compat: /mnt/assets
+      main: /root
+    io-format: yaml
+  set:
+    type: docker
+    image: compat
+    system: true
+    entrypoint: compat
+    args:
+      - config
+      - set
+      - lightning-jet
+      - /root
+      - "/mnt/assets/config_rules.yaml"
+    mounts:
+      compat: /mnt/assets
+      main: /root
+    io-format: yaml
 volumes:
   main:
     type: data
