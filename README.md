@@ -1,6 +1,6 @@
 # Wrapper for Lightning Jet (or simply Jet)
 
-`lightning-jet` is a simple, minimal project to serve as a template for creating an app for the Embassy.
+`lightning-jet` is a command line tool for managing channel balances on LND. This is considered a Power User LND Tool, and is not officially supported by Start9.
 
 ## Dependencies
 
