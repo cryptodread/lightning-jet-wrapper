@@ -90,6 +90,9 @@ dependencies:
     requirement:
       type: required
     config: ~
+alerts:
+  install: |
+    READ CAREFULLY! This is command-line ONLY tool. You will be required to use an SSH Key to gain access to the command line. Please refer to the Using SSH guide (https://start9.com/latest/user-manual/ssh) for setup instructions.
 backup:
   create:
     type: docker
