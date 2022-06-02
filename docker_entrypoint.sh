@@ -12,11 +12,12 @@ else
 fi
 
 #Configuring Lightning Jet
-sed -i 's/localhost/lnd.embassy/g' ./lnd-api/connect.js
 sed -i 's/.*"macaroonPath":.*/  "macaroonPath": "\/mnt\/lnd\/admin.macaroon",/' ./api/config.json
 sed -i 's/.*"tlsCertPath":.*/  "tlsCertPath": "\/mnt\/lnd\/tls.cert",/' ./api/config.json
+sed -i '/.*"macaroonPath":.*/a \ \ "serverAddress": "lnd.embassy:10009",' ./api/config.json
+sed -i '/.*"rebalancer":.*/a \ \ \  "minCapacity": 50000,' ./api/config.json
 if [ "$JET_BOT" = "enable" ]; then
-    sed -i '/.*"debugMode":.*/a    "telegramToken": "'$JET_TOKEN'",' ./api/config.json
+    sed -i '/.*"debugMode":.*/a  \ \ "telegramToken": "'$JET_TOKEN'",' ./api/config.json
 fi
 echo "export PATH=$PATH:/app" >> ./.profile
 source ./.profile
@@ -25,9 +26,6 @@ chmod +r /mnt/lnd/readonly.macaroon
 #Starting Lightning Jet
 echo "Starting Jet..."
 jet start daddy
-if [ "$JET_BOT" = "enable" ]; then
-    jet start telegram
-fi
 
 # Starting command line
 while true;

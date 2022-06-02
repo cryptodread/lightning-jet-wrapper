@@ -62,6 +62,9 @@ Clone the project locally. Note the submodule link to the original project(s).
 git clone https://github.com/Start9Labs/lightning-jet-wrapper.git
 cd lightning-jet-wrapper
 git submodule update --init --recursive
+docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
+docker buildx create --name multiarch --driver docker-container --use
+docker buildx inspect --bootstrap
 ```
 ## Building
 
