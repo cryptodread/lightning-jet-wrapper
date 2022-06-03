@@ -3,9 +3,8 @@
 set -a
 
 echo "Configuring Jet..."
-JET_BOT=$(yq e '.bot.enable' /root/start9/config.yaml)
-if [ "$JET_BOT" = "enable" ]; then
-	JET_TOKEN=$(yq e '.bot.token' /root/start9/config.yaml)
+JET_TOKEN=$(yq e '.token' /root/start9/config.yaml)
+if [ "$JET_TOKEN" != "" ]; then
 	echo "Jet Bot Enabled..."
 else
 	echo "Jet Bot Disabled..."
@@ -16,7 +15,7 @@ sed -i 's/.*"macaroonPath":.*/  "macaroonPath": "\/mnt\/lnd\/admin.macaroon",/' 
 sed -i 's/.*"tlsCertPath":.*/  "tlsCertPath": "\/mnt\/lnd\/tls.cert",/' ./api/config.json
 sed -i '/.*"macaroonPath":.*/a \ \ "serverAddress": "lnd.embassy:10009",' ./api/config.json
 sed -i '/.*"rebalancer":.*/a \ \ \  "minCapacity": 50000,' ./api/config.json
-if [ "$JET_BOT" = "enable" ]; then
+if [ "$JET_TOKEN" != "" ]; then
     sed -i '/.*"debugMode":.*/a  \ \ "telegramToken": "'$JET_TOKEN'",' ./api/config.json
 fi
 echo "export PATH=$PATH:/app" >> ./.profile
